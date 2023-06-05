@@ -122,6 +122,7 @@ def add_motif_links_to_graph(grph, motif):
     :return: returns the updated graph
     """
     for i in sat_positions:
+        print(motif['sat_1_orb_offset'], motif['sat_2_orb_offset'], i / NUM_SATS_PER_ORBIT)
         sel_sat_id = util.get_neighbor_satellite(sat_positions[i]["orb_id"], sat_positions[i]["orb_sat_id"],
                                                  motif["sat_1_orb_offset"], motif["sat_1_sat_offset"], sat_positions,
                                                  NUM_ORBITS, NUM_SATS_PER_ORBIT)
