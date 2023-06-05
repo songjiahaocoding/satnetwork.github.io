@@ -170,6 +170,12 @@ def compute_metric_avoid_city(grph):
 
             util.remove_coverage_for_city(grph, city1, city_coverage)
             util.remove_coverage_for_city(grph, city2, city_coverage)
+
+            city_satellite.write(str(path[0])+","+str(path[1]))
+            city_satellite.write(str(path[-1])+","+str(path[-2]))
+            for i in range(1, len(path)-1):
+                inter_satellite.write(str(path[i])+","+str(path[i+1]))
+            write_detail_motif.write(str(city1) + "," + str(city2) + "," + str(geoDist) + "," + str(hops) + "," + str(distance) + "," + str(stretch))
         except Exception as e:
             util.remove_coverage_for_city(grph, city1, city_coverage)
             util.remove_coverage_for_city(grph, city2, city_coverage)
@@ -182,7 +188,6 @@ def compute_metric_avoid_city(grph):
     avgWeightedStretch = weightedStretchSum / weightSum
     avgWeightedHopCount = weightedHopCountSum / weightSum
     wMetric = avgWeightedStretch + avgWeightedHopCount
-
     b = datetime.datetime.now() - a
     print("time to compute metric:", b.seconds, ", avgWeightedStretch:", avgWeightedStretch, ", avgWeightedHopCount:",
           avgWeightedHopCount)
@@ -243,6 +248,9 @@ CORE_CNT = int(sys.argv[1])
 
 writer_level_motif_metrics = open("../output_data_generated/single_motif/level_0_motif_metrics.txt", 'a+')
 writer_level_best_motif = open("../output_data_generated/single_motif/level_0_best_motif.txt", 'a+')
+write_detail_motif = open("../output_data_generated/single_motif/detail.txt", "a+")
+city_satellite = open("../output_data_generated/single_motif/city_satellite.txt", "a+")
+inter_satellite = open("../output_data_generated/single_motif/inter_satellite.txt", "a+")
 
 # =====================================================================
 # READING INPUTS
@@ -266,7 +274,7 @@ for i in range(0, len(valid_motif_possibilities), CORE_CNT):
     threads = []
     manager = multiprocessing.Manager()
     return_dict = manager.dict()
-
+    print(i, "out of", len(valid_motif_possibilities))
     # Parallelize metric computation based on available cores
     for j in range(0, CORE_CNT):
         id = i + j
