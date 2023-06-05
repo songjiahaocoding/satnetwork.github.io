@@ -97,7 +97,7 @@ def find_motif_possibilities():
             if not (valid_motif_links[i]["orb_id"] == 0 and valid_motif_links[j]["orb_id"] == 0) and not (
                     valid_motif_links[i]["sat_id"] == valid_motif_links[j]["sat_id"]):
                 # print(valid_motif_links[i]["sat_id"], valid_motif_links[j]["sat_id"])
-                if valid_motif_links[i]['orb_id']!=0 and valid_motif_links[j]['orb_id']!=0:
+                if valid_motif_links[i]['orb_id'] != 0 and valid_motif_links[j]['orb_id'] != 0:
                     continue
                 motif_possibilities[motif_cnt] = {
                     "motif_cnt": motif_cnt,
@@ -112,6 +112,8 @@ def find_motif_possibilities():
                     "wMetric": -1.0,
                     "future": None
                 }
+                if motif_possibilities[motif_cnt]['sat_orb_offset'] != 0 or motif_possibilities[motif_cnt]['sat_orb_offset'] !=0:
+                    print(motif_possibilities[motif_cnt])
                 motif_cnt += 1
     return motif_possibilities
 
@@ -124,7 +126,7 @@ def add_motif_links_to_graph(grph, motif):
     :return: returns the updated graph
     """
     for i in sat_positions:
-        print(motif['sat_1_orb_offset'], motif['sat_2_orb_offset'], sat_positions[i]['orb_id'])
+        # print(motif['sat_1_orb_offset'], motif['sat_2_orb_offset'], sat_positions[i]['orb_id'])
         sel_sat_id = util.get_neighbor_satellite(sat_positions[i]["orb_id"], sat_positions[i]["orb_sat_id"],
                                                  motif["sat_1_orb_offset"], motif["sat_1_sat_offset"], sat_positions,
                                                  NUM_ORBITS, NUM_SATS_PER_ORBIT)
