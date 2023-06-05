@@ -70,7 +70,7 @@ def find_motif_possibilities():
     Get all feasible north and right links for the satellite with id 0
     """
     sat_id = 0
-    ORB_OFFSET = NUM_ORBITS / 4
+    ORB_OFFSET = 3
     valid_motif_links = {}
     valid_link_cnt = 0
     for i in range(len(valid_isls)):
@@ -97,6 +97,8 @@ def find_motif_possibilities():
             if not (valid_motif_links[i]["orb_id"] == 0 and valid_motif_links[j]["orb_id"] == 0) and not (
                     valid_motif_links[i]["sat_id"] == valid_motif_links[j]["sat_id"]):
                 # print(valid_motif_links[i]["sat_id"], valid_motif_links[j]["sat_id"])
+                if valid_motif_links[i]['orb_id']!=0 and valid_motif_links[j]['orb_id']!=0:
+                    continue
                 motif_possibilities[motif_cnt] = {
                     "motif_cnt": motif_cnt,
                     "sat_1_id": valid_motif_links[i]["sat_id"],
@@ -172,11 +174,11 @@ def compute_metric_avoid_city(grph):
             util.remove_coverage_for_city(grph, city1, city_coverage)
             util.remove_coverage_for_city(grph, city2, city_coverage)
 
-            city_satellite.write(str(path[0])+","+str(path[1]))
-            city_satellite.write(str(path[-1])+","+str(path[-2]))
-            for i in range(1, len(path)-1):
-                inter_satellite.write(str(path[i])+","+str(path[i+1]))
-            write_detail_motif.write(str(city1) + "," + str(city2) + "," + str(geoDist) + "," + str(hops) + "," + str(distance) + "," + str(stretch))
+            # city_satellite.write(str(path[0])+","+str(path[1]))
+            # city_satellite.write(str(path[-1])+","+str(path[-2]))
+            # for i in range(1, len(path)-1):
+            #     inter_satellite.write(str(path[i])+","+str(path[i+1]))
+            # write_detail_motif.write(str(city1) + "," + str(city2) + "," + str(geoDist) + "," + str(hops) + "," + str(distance) + "," + str(stretch))
         except Exception as e:
             util.remove_coverage_for_city(grph, city1, city_coverage)
             util.remove_coverage_for_city(grph, city2, city_coverage)
