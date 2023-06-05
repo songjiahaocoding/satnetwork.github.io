@@ -112,7 +112,8 @@ def find_motif_possibilities():
                     "wMetric": -1.0,
                     "future": None
                 }
-                if motif_possibilities[motif_cnt]['sat_1_orb_offset'] != 0 or motif_possibilities[motif_cnt]['sat_2_orb_offset'] !=0:
+                if motif_possibilities[motif_cnt]['sat_1_orb_offset'] != 0 \
+                        and motif_possibilities[motif_cnt]['sat_2_orb_offset'] !=0:
                     print(motif_possibilities[motif_cnt])
                 motif_cnt += 1
     return motif_possibilities
